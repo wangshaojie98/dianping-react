@@ -24,7 +24,6 @@ export default store => next => action => {
   }
 
   const { types, schema, endPoint } = callAPI;
-
   if (typeof endPoint !== 'string') {
     throw new Error('endPoint必须为string类型的URL');
   }

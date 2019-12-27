@@ -6,7 +6,7 @@ export default class LikeItem extends Component {
   render() {
     const { id, shop, tag, picture, product, oldPrice, saleDesc, currentPrice } = this.props.data;
     return (
-      <Link className="likeItem" to={`/detail${id}`} key={id}>
+      <Link className="likeItem" to={`/detail/${id}`} key={id}>
         <div className="likeItem__picContainer">
           <div className="likeItem__picTag">{tag}</div>
           <img className="likeItem__pic" src={picture} alt="" ></img>
