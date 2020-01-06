@@ -8,6 +8,9 @@ import Home from '../Home';
 import ProductDetail from '../ProductDetail';
 import Search from '../Search';
 import SearchResult from '../SearchResult';
+import Login from '../Login';
+import PrivateRoute from '../PrivateRoute';
+import User from '../User';
 
 function App(props) {
 	const { error, appActions: { clearError } } = props;
@@ -15,6 +18,8 @@ function App(props) {
 		<div className="App">
 			<Router>
 				<Switch>
+					<Route path="/login" component={Login} />
+					<PrivateRoute path="/user" component={User} />
 					<Route path="/search" component={Search} />
 					<Route path="/search_result" component={SearchResult} />
 					<Route path="/detail/:id" component={ProductDetail} />

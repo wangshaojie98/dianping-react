@@ -4,11 +4,13 @@ import detail from './detail';
 import app from './app';
 import home from './home';
 import search from './search';
+import login from './login';
 
 export default combineReducers({
     entities,
     detail,
     app,
     home,
-    search
+    search,
+    login
 })
