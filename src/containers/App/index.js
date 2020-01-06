@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from '../Home';
 import ProductDetail from '../ProductDetail';
+import Search from '../Search';
+import SearchResult from '../SearchResult';
 
 function App(props) {
 	const { error, appActions: { clearError } } = props;
@@ -13,6 +15,8 @@ function App(props) {
 		<div className="App">
 			<Router>
 				<Switch>
+					<Route path="/search" component={Search} />
+					<Route path="/search_result" component={SearchResult} />
 					<Route path="/detail/:id" component={ProductDetail} />
 					<Route path="/" component={Home} />
 				</Switch>
