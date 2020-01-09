@@ -5,6 +5,7 @@ import app from './app';
 import home from './home';
 import search from './search';
 import login from './login';
+import user from './user';
 
 export default combineReducers({
     entities,
@@ -12,5 +13,6 @@ export default combineReducers({
     app,
     home,
     search,
-    login
+    login,
+    user
 })
