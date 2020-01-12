@@ -13,7 +13,7 @@ export default function Discount(props) {
       <div className="discount__content">
         {props.data.map((item, index) => {
           return (
-            <Link to={`/detail${item.id}`} className="discount__item" key={item.id} href={item.url}>
+            <Link to={`/detail/${item.id}`} className="discount__item" key={item.id} href={item.url}>
               <div className="discount__itemPic">
                 <img width="100%" height="100%" src={item.picture} alt="" ></img>
               </div>

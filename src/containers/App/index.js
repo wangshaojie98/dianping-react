@@ -4,13 +4,25 @@ import { connect } from 'react-redux';
 import { actions as appActions, getError } from '../../redux/modules/app';
 import { bindActionCreators } from 'redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from '../Home';
-import ProductDetail from '../ProductDetail';
-import Search from '../Search';
-import SearchResult from '../SearchResult';
-import Login from '../Login';
 import PrivateRoute from '../PrivateRoute';
-import User from '../User';
+
+// import Home from '../Home';
+// import ProductDetail from '../ProductDetail';
+// import Search from '../Search';
+// import SearchResult from '../SearchResult';
+// import Login from '../Login';
+// import User from '../User';
+// import Purchase from '../Purchase';
+import asyncComponent from '../../utils/AsyncComponent';
+
+const Home = asyncComponent(() => import('../Home'));
+const ProductDetail = asyncComponent(() => import('../ProductDetail'));
+const Search = asyncComponent(() => import('../Search'));
+const SearchResult = asyncComponent(() => import('../SearchResult'));
+const Login = asyncComponent(() => import('../Login'));
+const User = asyncComponent(() => import('../User'));
+const Purchase = asyncComponent(() => import('../Purchase'));
+
 
 function App(props) {
 	const { error, appActions: { clearError } } = props;
@@ -20,6 +32,7 @@ function App(props) {
 				<Switch>
 					<Route path="/login" component={Login} />
 					<PrivateRoute path="/user" component={User} />
+					<Route path="/purchase/:id" component={Purchase} />
 					<Route path="/search" component={Search} />
 					<Route path="/search_result" component={SearchResult} />
 					<Route path="/detail/:id" component={ProductDetail} />

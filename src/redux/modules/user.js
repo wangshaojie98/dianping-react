@@ -12,10 +12,17 @@ import { FETCH_DATA } from '../../redux/middleware/api';
 import url from '../../utils/url';
 import { combineReducers } from 'redux';
 
+const typeToKey = {
+	[TO_PAY_TYPE]: 'toPayIds',
+	[AVAILABLE_TYPE]: 'availableIds',
+	[REFUND_TYPE]: 'refundIds'
+};
+
 const initState = {
 	currentTab: 0,
 	orders: {
 		isFetching: false,
+		fetched: false,
 		ids: [],
 		toPayIds: [],
 		availableIds: [],
@@ -59,8 +66,8 @@ const types = {
 export const actions = {
 	loadOrders: () => {
 		return (dispatch, getState) => {
-			const { ids } = getState().user.orders;
-			if (ids.length > 0) {
+			const { fetched } = getState().user.orders;
+			if (fetched) {
 				return null;
 			}
 			const endPoint = url.getOrders();
@@ -208,6 +215,12 @@ const ordersReducer = (state = initState.orders, action) => {
 				availableIds: removeOrderById(state, 'availableIds', action.orderId),
 				refundIds: removeOrderById(state, 'refundIds', action.orderId)
 			};
+		case orderTypes.ADD_ORDER:
+			const type = action.order.type;
+			const key = typeToKey[type];
+			return key
+				? { ...state, [key]: [ action.order.id, ...state[key] ], ids: [ action.order.id, ...state.ids ] }
+				: { ...state, ids: [action.order.id, ...state.ids] };
 		default:
 			return state;
 	}
@@ -226,11 +239,11 @@ const currentOrderReducer = (state = initState.currentOrder, action) => {
 		case types.SHOW_DELETE_DIALOG:
 			return { ...state, isDeleting: true, id: action.orderId };
 		case types.SET_COMMENT:
-			return {...state, comment: action.comment};
+			return { ...state, comment: action.comment };
 		case types.SET_STARS:
-			return {...state, stars: action.stars};
+			return { ...state, stars: action.stars };
 		case types.SHOW_COMMENT_AREA:
-			return {...state, isCommenting: true, id: action.orderId};
+			return { ...state, isCommenting: true, id: action.orderId };
 		case types.HIDE_COMMENT_AREA:
 		case types.DELETE_ORDER_SUCCESS:
 		case types.DELETE_ORDER_FAILURE:
